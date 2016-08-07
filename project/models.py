@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-class Formula(models.Model):
+class Project(models.Model):
     name = models.CharField( max_length=255,)
     value = models.CharField( max_length=255,)
     attribute = models.CharField(max_length=255,)
@@ -12,4 +12,4 @@ class Formula(models.Model):
     updatedAt = models.CharField( max_length=255,)
     
     def __str__(self):
-        return self.name
+        return self.name 
