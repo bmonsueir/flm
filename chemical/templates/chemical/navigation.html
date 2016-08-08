@@ -1,0 +1,21 @@
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-left">
+
+       {{#if currentUser}}
+       <li ><a href="{{pathFor 'projects'}}">Projects</a></li>
+        <li ><a href="{{pathFor 'development'}}">Development</a></li>
+        <li ><a href="{{pathFor 'administrate'}}" >Administrate</a></li>
+        <li ><a href="{{pathFor 'testing'}}">Testing</a></li>
+        {{else}}
+        <li ><a href="{{pathFor 'home'}}">Home</a></li>
+        <li ><a href="{{pathFor 'about'}}">About</a></li>
+        <!-- <li ><a href="/signup">Sign up</a></li>
+        <li ><a href="/login">Login</a></li> -->
+        {{/if}}
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+      <li >{{> loginButtons}}</li>
+      </ul>
+  </div>
+</div>

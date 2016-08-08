@@ -1,0 +1,16 @@
+{% extends 'chemical/base.html' %}
+
+{% block body %}
+
+{% if all_chemical %}
+   
+    <ul>
+        {% for chemical in all_chemical %}
+        <li> <a href = "{% url 'chemical_detail' chemical.id %}"> {{ chemical.name }} </a> </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h1>No Chemicals</h1>
+{% endif %}
+
+{% endblock %}
