@@ -22,6 +22,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^chemical/', include('chemical.urls')),
-    url(r'^', include('chemical.urls')),
+    url(r'^chemical/', include('chemical.urls', namespace = 'chemical')),
+    url(r'^', include('chemical.urls', namespace = 'home')),
 ]
