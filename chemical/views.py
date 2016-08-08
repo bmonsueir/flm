@@ -3,8 +3,8 @@ from .models import Chemical
 from .models import Project
 from .models import Formula
 
-def index(request):
-    return render(request, 'chemical/index.html')
+def home(request):
+    return render(request, 'chemical/home.html')
 
 
 def chemical_index(request):
