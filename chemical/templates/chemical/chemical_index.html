@@ -6,7 +6,7 @@
    
     <ul>
         {% for chemical in all_chemical %}
-        <li> <a href = "{% url 'chemical_detail' chemical.id %}"> {{ chemical.name }} </a> </li>
+        <li> <a href = "{% url 'chemical:chemical_detail' chemical.id %}"> {{ chemical.name }} </a> </li>
         {% endfor %}
     </ul>
 {% else %}

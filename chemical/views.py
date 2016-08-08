@@ -40,3 +40,5 @@ def formula_detail(request, formula_id):
     formula = get_object_or_404(Formula, id = formula_id)
     return render(request, 'chemical/formula_detail.html', {'formula': formula})
     
+def tutorials(request):
+    return render(request, 'chemical/tutorials.html')
