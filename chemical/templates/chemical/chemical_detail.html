@@ -1,1 +1,37 @@
+{% extends 'chemical/base.html' %}
+{% block title %} Specification{% endblock %}
+
+
+{% block body %}
+<h1>{{ chemical_name}}</h1>
+<h3>Information &nbsp;<a href ="{% url 'chemical:create_attribute' %}" ><button class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
+<div class="container">
+    <table class="table table-striped">
+        {% for attr in attributes %}
+        <tr>
+            <td> {{ attr.name }}</td><td> {{ attr.value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<h3>Specifications&nbsp;<a href ="{% url 'chemical:create_specification' %}" ><button  class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
+<div class="container">
+    <table class="table table-bordered">
+
+       <th>Name</th><th>Min</th><th>Max</th><th>Method</th><th>Update</th>
+       {% for spec in specifications %}
+       <tr>
+           <td>{{ spec.name }}</td><td>{{ spec.min_value }}</td><td>{{ spec.max_value }}</td>
+           <td>{{ spec.test_method }}</td><td><button class = 'btn btn-warning'> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Edit</button>
+           &nbsp;<button class = 'btn btn-danger'> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;Delete</td></button>
+       </tr>
+       {% endfor %}
+   </table>
+   </div>
+    
+</div>
+
+{% endblock %}
+
+
 {{ chemical }}

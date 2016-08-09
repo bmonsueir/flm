@@ -39,11 +39,7 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="{% url 'chemical:project_index' %}">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; ADD
-                    </a>
-                </li>
+                {% block add %}   {% endblock %}>
                 <li>
                     <a href="{% url 'chemical:project_index' %}">
                         <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp; Project
