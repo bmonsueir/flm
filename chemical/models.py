@@ -4,8 +4,8 @@ from django.db import models
 
 class Chemical(models.Model):
     name = models.CharField( max_length=255,)
-    updatedBy = models.CharField(max_length=255,)
-    permissions = models.CharField(max_length=255,)
+    updatedBy = models.CharField(max_length=255, default = "Admin",)
+    permissions = models.CharField(max_length=255, default = "All",)
     updatedAt = models.CharField( max_length=255,)
     
     def get_absolute_url(self):
@@ -18,8 +18,8 @@ class Attribute(models.Model):
     chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
     name = models.CharField( max_length=255,)
     value = models.CharField( max_length=255,)
-    updatedBy = models.CharField(max_length=255,)
-    permissions = models.CharField(max_length=255,)
+    updatedBy = models.CharField(max_length=255, default = "Admin",)
+    permissions = models.CharField(max_length=255, default = "All",)
     updatedAt = models.CharField( max_length=255,)
     
     def __str__(self):
@@ -32,8 +32,8 @@ class Specification(models.Model):
     max_value = models.CharField( max_length=255,)
     min_value = models.CharField(max_length=255,)
     test_method = models.CharField( max_length=255,)
-    updatedBy = models.CharField(max_length=255,)
-    permissions = models.CharField(max_length=255,)
+    updatedBy = models.CharField(max_length=255, default = "Admin",)
+    permissions = models.CharField(max_length=255, default = "All",)
     updatedAt = models.CharField( max_length=255,)
     
     def __str__(self):

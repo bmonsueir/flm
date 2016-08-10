@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^project/$', views.project_index, name='project_index'),
     url(r'^create_chemical/$', views.create_chemical, name='create_chemical'),
     url(r'^create_attribute/$', views.create_attribute, name='create_attribute'),
-    url(r'^create_specification/$', views.create_specification, name='create_specification'),
+    url(r'^attribute/(?P<attribute_id>[0-9]+)/$', views.update_attribute, name='update_attribute'),
+    url(r'^specification/$', views.update_specification, name='update_specification'),
+    url(r'^create_specification(?P<chemical_id>[0-9]+)/$', views.create_specification, name='create_specification'),
     url(r'^tutorials/$', views.tutorials, name='tutorials'),
 ]

@@ -10,12 +10,15 @@
 {% block body %}
 
 {% if all_chemical %}
-   
-    <ul>
+   <div class = "container">
+       <ol type = "1">
         {% for chemical in all_chemical %}
         <li> <a href = "{% url 'chemical:chemical_detail' chemical.id %}"> {{ chemical.name }} </a> </li>
         {% endfor %}
-    </ul>
+    </ol>
+       
+   </div>
+    
 {% else %}
     <h1>No Chemicals</h1>
 {% endif %}

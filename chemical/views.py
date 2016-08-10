@@ -23,7 +23,7 @@ def chemical_detail(request, chemical_id):
     chemical_name = get_object_or_404(Chemical, id = chemical_id)
     specifications = Specification.objects.filter(chemical = chemical_id)
     attributes = Attribute.objects.filter(chemical = chemical_id)
-    return render(request, 'chemical/chemical_detail.html', {'specifications': specifications, 'attributes': attributes, 'chemical_name': chemical_name})
+    return render(request, 'chemical/chemical_detail.html', {'specifications': specifications, 'attributes': attributes, 'chemical_name': chemical_name, 'chemical_id': chemical_id})
     
 def project_index(request):
     all_project = Project.objects.all()
@@ -102,24 +102,24 @@ def create_chemical(request):
         form = ChemicalForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             chemical = form.save(commit=False)
-            chemical.user = request.user
             chemical.save()
-            return render(request, 'chemical/create_specification.html', {'chemical': chemical})
+            return render(request, 'chemical/chemical_detail.html', {'specifications': {}, 'attributes': {}, 'chemical_name': chemical.name, 'chemical_id': chemical.id})
         context = {
             "form": form,
         }
         return render(request, 'chemical/create_chemical.html', context)
 
-def create_specification(request):
+def create_specification(request, chemical_id):
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
         form = SpecificationForm(request.POST or None, request.FILES or None)
+        chemical_name = get_object_or_404(Chemical, id = chemical_id)
         if form.is_valid():
             specification = form.save(commit=False)
-            specification.user = request.user
+            specification.chemical = chemical_id
             specification.save()
-            return render(request, 'chemical/create_specification.html', {'specification': specification})
+            return render(request, 'chemical/chemical_index.html')
         context = {
             "form": form,
         }
@@ -139,3 +139,9 @@ def create_attribute(request):
             "form": form,
         }
         return render(request, 'chemical/create_attribute.html', context)
+
+def update_attribute(request):
+    return render(request, 'chemical/update_attribute')
+    
+def update_specification(request):
+    return render(request, 'chemical/update_specification')
