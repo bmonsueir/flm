@@ -115,28 +115,35 @@ def create_specification(request, chemical_id):
     else:
         form = SpecificationForm(request.POST or None, request.FILES or None)
         chemical_name = get_object_or_404(Chemical, id = chemical_id)
+        specifications = Specification.objects.filter(chemical = chemical_id)
+        attributes = Attribute.objects.filter(chemical = chemical_id)
         if form.is_valid():
             specification = form.save(commit=False)
-            specification.chemical = chemical_id
+            specification.chemical = chemical_name
             specification.save()
-            return render(request, 'chemical/chemical_index.html')
+            return render(request, 'chemical/chemical_detail.html', {'specifications': specifications, 'attributes': attributes, 'chemical_name': chemical_name, 'chemical_id': chemical_id})
         context = {
             "form": form,
+            "chemical_name": chemical_name,
         }
         return render(request, 'chemical/create_specification.html', context)
 
-def create_attribute(request):
+def create_attribute(request, chemical_id):
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
         form = AttributeForm(request.POST or None, request.FILES or None)
+        chemical_name = get_object_or_404(Chemical, id = chemical_id)
+        specifications = Specification.objects.filter(chemical = chemical_id)
+        attributes = Attribute.objects.filter(chemical = chemical_id)
         if form.is_valid():
             attribute = form.save(commit=False)
-            attribute.user = request.user
+            attribute.chemical = chemical_name
             attribute.save()
-            return render(request, 'chemical/create_attribute.html', {'attribute': attribute})
+            return render(request, 'chemical/chemical_detail.html', {'specifications': specifications, 'attributes': attributes, 'chemical_name': chemical_name, 'chemical_id': chemical_id})
         context = {
             "form": form,
+            "chemical_name": chemical_name,
         }
         return render(request, 'chemical/create_attribute.html', context)
 

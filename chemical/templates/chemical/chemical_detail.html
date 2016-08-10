@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>{{ chemical_name}}</h1>
-<h3>Information &nbsp;<a href ="{% url 'chemical:create_attribute' %}" ><button class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
+<h3>Information &nbsp;<a href ="{% url 'chemical:create_attribute' chemical_id %}" ><button class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
 <div class="container">
     <table class="table table-striped">
         {% for attr in attributes %}
@@ -14,7 +14,7 @@
         {% endfor %}
     </table>
 </div>
-<h3>Specifications&nbsp;<a href ="{% url 'chemical:create_specification' chemical_id %}" ><button  class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
+<h3>Specifications&nbsp;<a href ="{% url 'chemical:create_specification' chemical_id  %}" ><button  class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
 <div class="container">
     <table class="table table-bordered">
 

@@ -8,21 +8,21 @@ class ChemicalForm(forms.ModelForm):
 
     class Meta:
         model = Chemical
-        fields = ['name', 'updatedBy', 'permissions', 'updatedAt']
+        fields = ['name']
 
 
 class SpecificationForm(forms.ModelForm):
 
     class Meta:
         model = Specification
-        fields = ['name', 'max_value', 'min_value', 'test_method', 'updatedBy', 'permissions', 'updatedAt']
+        fields = ['name', 'max_value', 'min_value', 'test_method']
 
 
 class AttributeForm(forms.ModelForm):
 
     class Meta:
         model = Attribute
-        fields = ['name', 'value', 'updatedBy', 'permissions', 'updatedAt']
+        fields = ['name', 'value']
 
 
 class UserForm(forms.ModelForm):
