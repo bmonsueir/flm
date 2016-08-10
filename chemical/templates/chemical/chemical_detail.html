@@ -18,12 +18,10 @@
 <div class="container">
     <table class="table table-bordered">
 
-       <th>Name</th><th>Min</th><th>Max</th><th>Method</th><th>Update</th>
+       <th>Name</th><th>Min</th><th>Max</th><th>Method</th>
        {% for spec in specifications %}
        <tr>
-           <td>{{ spec.name }}</td><td>{{ spec.min_value }}</td><td>{{ spec.max_value }}</td>
-           <td>{{ spec.test_method }}</td><td><a href ="{% url 'chemical:update_specification' %}" <button class = 'btn btn-warning'> 
-           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Edit</button></a>
+           <td>{{ spec.name }}</td><td>{{ spec.min_value }}</td><td>{{ spec.max_value }}</td><td>{{ spec.test_method }}</td>
        </tr>
        {% endfor %}
    </table>

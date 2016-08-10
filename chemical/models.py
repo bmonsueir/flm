@@ -26,7 +26,6 @@ class Attribute(models.Model):
     def __str__(self):
         return self.name 
     
-        
 class Specification(models.Model):
     chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
     name = models.CharField( max_length=255,)
@@ -50,10 +49,26 @@ class Project(models.Model):
         return self.name 
         
 class Formula(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField( max_length=255,)
     updatedBy = models.CharField(max_length=255,)
     permissions = models.CharField(max_length=255,)
     updatedAt = models.CharField( max_length=255,)
     
     def __str__(self):
-        return self.name
+        return self.name 
+        
+class Batch(models.Model):
+    formula = models.ForeignKey(Formula, on_delete=models.CASCADE)
+    chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
+    phase = models.CharField(max_length=5,)
+    amount = models.DecimalField(default = 0.00, max_digits=5, decimal_places=4)
+    instruction = models.CharField(max_length=255,)
+    row = models.IntegerField()
+    updatedBy = models.CharField(max_length=255,)
+    permissions = models.CharField(max_length=255,)
+    updatedAt = models.DateTimeField('date created', default=datetime.now)
+    
+    def __str__(self):
+        return self.instruction
+        
