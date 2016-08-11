@@ -5,8 +5,8 @@ from datetime import datetime
 
 class Chemical(models.Model):
     name = models.CharField( max_length=255,)
-    updatedBy = models.CharField(max_length=255, default = "Admin",)
-    permissions = models.CharField(max_length=255, default = "All",)
+    updatedBy = models.CharField(max_length=255, )
+    permissions = models.CharField(max_length=255, )
     updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def get_absolute_url(self):
@@ -19,8 +19,8 @@ class Attribute(models.Model):
     chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
     name = models.CharField( max_length=255,)
     value = models.CharField( max_length=255,)
-    updatedBy = models.CharField(max_length=255, default = "Admin",)
-    permissions = models.CharField(max_length=255, default = "All",)
+    updatedBy = models.CharField(max_length=255, )
+    permissions = models.CharField(max_length=255, )
     updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def __str__(self):
@@ -32,8 +32,8 @@ class Specification(models.Model):
     max_value = models.CharField( max_length=255,)
     min_value = models.CharField(max_length=255,)
     test_method = models.CharField( max_length=255,)
-    updatedBy = models.CharField(max_length=255, default = "Admin",)
-    permissions = models.CharField(max_length=255, default = "All",)
+    updatedBy = models.CharField(max_length=255, )
+    permissions = models.CharField(max_length=255,)
     updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def __str__(self):
@@ -43,7 +43,7 @@ class Project(models.Model):
     name = models.CharField( max_length=255,)
     updatedBy = models.CharField(max_length=255,)
     permissions = models.CharField(max_length=255,)
-    updatedAt = models.CharField( max_length=255,)
+    updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def __str__(self):
         return self.name 
@@ -53,7 +53,7 @@ class Formula(models.Model):
     name = models.CharField( max_length=255,)
     updatedBy = models.CharField(max_length=255,)
     permissions = models.CharField(max_length=255,)
-    updatedAt = models.CharField( max_length=255,)
+    updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def __str__(self):
         return self.name 
