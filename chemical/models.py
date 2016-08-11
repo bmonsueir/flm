@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.contrib.auth.models import Permission, User
 from django.core.urlresolvers import reverse
 from django.db import models
 from datetime import datetime
@@ -40,6 +41,7 @@ class Specification(models.Model):
         return self.name 
         
 class Project(models.Model):
+    user = models.ForeignKey(User, default=1)
     name = models.CharField( max_length=255,)
     updatedBy = models.CharField(max_length=255,)
     permissions = models.CharField(max_length=255,)

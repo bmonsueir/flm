@@ -1,1 +1,19 @@
-{{ project }}
+{% extends 'chemical/base.html' %}
+{% block title %} {{ project }} {% endblock %}
+
+
+{% block body %}
+<h1>{{ project}}</h1>
+<h3>Formulas &nbsp;<a href ="{% url 'chemical:create_formula' project_id %}" ><button class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h3>
+<div class="container">
+    <table class="table table-striped">
+       
+        <ol>
+             {% for formula in formulas %}
+            <li><a href ="{% url 'chemical:create_batch' formula.id %}" > {{ formula.name }}</a></li>
+            {% endfor %}
+        </ol>
+        
+    </table>
+</div>
+{% endblock %}

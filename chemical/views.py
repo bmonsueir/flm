@@ -3,14 +3,20 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q #what is?
-from .forms import ChemicalForm, SpecificationForm, UserForm, AttributeForm
+from .forms import ChemicalForm, SpecificationForm, UserForm, AttributeForm, ProjectForm, FormulaForm, BatchForm
 from .models import Chemical, Specification, Attribute
 from .models import Project
-from .models import Formula
+from .models import Formula, Batch
 
 def home(request):
     return render(request, 'chemical/home.html')
 
+def index(request):
+    if not request.user.is_authenticated():
+        return render(request, 'chemical/home.html')
+    else:
+        all_project = Project.objects.filter(updatedBy=request.user)
+        return render(request, 'chemical/project_index.html', {'all_project': all_project})
 
 def chemical_index(request):
     all_chemical = Chemical.objects.all()
@@ -34,7 +40,8 @@ def project_index(request):
     
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id = project_id)
-    return render(request, 'chemical/project_detail.html', {'project': project})
+    formulas = Formula.objects.filter(project = project.id)
+    return render(request, 'chemical/project_detail.html', {'project': project, 'project_id': project_id, 'formulas': formulas})
     
 def formula_index(request):
     all_formula = Formula.objects.all()
@@ -67,8 +74,8 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                chemical = Chemical.objects.filter(user=request.user)
-                return render(request, 'chemical/index.html', {'chemical': chemical})
+                all_project = Project.objects.filter(user=request.user)
+                return render(request, 'chemical/project_index.html', {'all_project': all_project})
             else:
                 return render(request, 'chemical/login.html', {'error_message': 'Your account has been disabled'})
         else:
@@ -93,7 +100,7 @@ def register(request):
     context = {
         "form": form,
     }
-    return render(request, 'music/register.html', context)
+    return render(request, 'chemical/register.html', context)
 
 def create_chemical(request):
     if not request.user.is_authenticated():
@@ -147,8 +154,52 @@ def create_attribute(request, chemical_id):
         }
         return render(request, 'chemical/create_attribute.html', context)
 
-def update_attribute(request):
-    return render(request, 'chemical/update_attribute')
-    
-def update_specification(request):
-    return render(request, 'chemical/update_specification')
+def create_project(request):
+    if not request.user.is_authenticated():
+        return render(request, 'chemical/login.html')
+    else:
+        form = ProjectForm(request.POST or None, request.FILES or None)
+        projects = Project.objects.all()
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+            return render(request, 'chemical/project_index.html', { 'projects': projects})
+        context = {
+            "form": form,
+        }
+        return render(request, 'chemical/create_project.html', context)
+        
+def create_formula(request, project_id):
+    if not request.user.is_authenticated():
+        return render(request, 'chemical/login.html')
+    else:
+        form = FormulaForm(request.POST or None, request.FILES or None)
+        project_name = get_object_or_404(Project, id = project_id)
+        formulas = Formula.objects.all()
+        if form.is_valid():
+            formula = form.save(commit=False)
+            formula.project = project_name
+            formula.save()
+            return render(request, 'chemical/create_batch.html', {'formula':formula})
+        context = {
+            "form": form,
+        }
+        return render(request, 'chemical/create_formula.html', context)
+        
+def create_batch(request, formula_id):
+    if not request.user.is_authenticated():
+        return render(request, 'chemical/login.html')
+    else:
+        form = BatchForm(request.POST or None, request.FILES or None)
+        formula_name = get_object_or_404(Formula, id = formula_id)
+        batches = Batch.objects.filter(formula = formula_name)
+        if form.is_valid():
+            batch = form.save(commit=False)
+            batch.formula = formula_name
+            batch.save()
+            return render(request, 'chemical/project_batch.html', { 'batches': batches, 'formula_name': formula_name})
+        context = {
+            "form": form,
+            "formula_name": formula_name
+        }
+        return render(request, 'chemical/create_batch.html', context)

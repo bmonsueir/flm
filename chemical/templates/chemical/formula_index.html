@@ -3,12 +3,13 @@
 {% block body %}
 
 {% if all_formula %}
-   
-    <ul>
-        {% for formula in all_formula %}
-        <li> <a href = "{% url 'chemical:formula_detail' formula.id %}"> {{ formula.name }} </a> </li>
-        {% endfor %}
-    </ul>
+   <div class = "container">
+        <ul>
+            {% for formula in all_formula %}
+            <li> <a href = "{% url 'chemical:formula_detail' formula.id %}"> {{ formula.name }} </a> </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% else %}
     <h1>No Formulas</h1>
 {% endif %}
