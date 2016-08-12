@@ -8,6 +8,7 @@ from .models import Chemical, Specification, Attribute
 from .models import Project
 from .models import Formula, Batch
 
+
 def home(request):
     return render(request, 'chemical/home.html')
 
@@ -180,7 +181,7 @@ def create_formula(request, project_id):
             formula = form.save(commit=False)
             formula.project = project_name
             formula.save()
-            return render(request, 'chemical/create_batch.html', {'formula':formula})
+            return render(request, 'chemical/batch.html', {'formula':formula})
         context = {
             "form": form,
         }
@@ -212,3 +213,4 @@ def batch(request, formula_id):
             "formula_name": formula_name
         }
         return render(request, 'chemical/batch.html', context)
+        
