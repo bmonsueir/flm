@@ -1,0 +1,37 @@
+{% extends 'chemical/base.html' %}
+{% block title %} Formulate Batch{% endblock %}
+
+{% block body %}
+<div class = "container">
+     <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Current Formula {{ formula_name }}</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table class="table table-bordered">
+                            {% for field in form %}
+                            <th><span class = "errmesg">{{ field.errors }}</span>{{ field.label_tag }}</th>
+                             {% endfor %}
+                             {% for batch in batches %}
+                             <tr>
+                                 <td>{{ batch.chemical }}</td><td>{{ batch.phase }}</td><td>{{ batch.amount }}</td><td>{{ batch.instruction }}</td>
+                             </tr>
+                             {% endfor %}
+                            <tr>
+                                {% for field in form %}
+                                <td>{{ field }}</td>
+                                  {% endfor %}
+                                  <td><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+            
+{% endblock %}

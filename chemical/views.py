@@ -186,20 +186,29 @@ def create_formula(request, project_id):
         }
         return render(request, 'chemical/create_formula.html', context)
         
-def create_batch(request, formula_id):
+def batch(request, formula_id):
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
         form = BatchForm(request.POST or None, request.FILES or None)
         formula_name = get_object_or_404(Formula, id = formula_id)
         batches = Batch.objects.filter(formula = formula_name)
+        print(batches)
+        next_row = 0
+        for the_batch in batches:
+            next_row = the_batch.row
+        next_row += 1
         if form.is_valid():
             batch = form.save(commit=False)
+            batch.row = next_row
             batch.formula = formula_name
             batch.save()
-            return render(request, 'chemical/project_batch.html', { 'batches': batches, 'formula_name': formula_name})
+            batches = Batch.objects.filter(formula = formula_name)
+            form = BatchForm(request.POST or None, request.FILES or None)
+            return render(request, 'chemical/batch.html', { 'batches': batches, 'formula_name': formula_name, 'form': form})
         context = {
             "form": form,
+            'batches': batches,
             "formula_name": formula_name
         }
-        return render(request, 'chemical/create_batch.html', context)
+        return render(request, 'chemical/batch.html', context)

@@ -64,7 +64,7 @@ class Batch(models.Model):
     formula = models.ForeignKey(Formula, on_delete=models.CASCADE)
     chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
     phase = models.CharField(max_length=5,)
-    amount = models.DecimalField(default = 0.00, max_digits=5, decimal_places=4)
+    amount = models.DecimalField(default = 0.00, max_digits=7, decimal_places=4)
     instruction = models.CharField(max_length=255,)
     row = models.IntegerField()
     updatedBy = models.CharField(max_length=255,)

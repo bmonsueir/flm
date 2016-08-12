@@ -10,7 +10,7 @@
        
         <ol>
              {% for formula in formulas %}
-            <li><a href ="{% url 'chemical:create_batch' formula.id %}" > {{ formula.name }}</a></li>
+            <li><a href ="{% url 'chemical:batch' formula.id %}" > {{ formula.name }}</a></li>
             {% endfor %}
         </ol>
         
