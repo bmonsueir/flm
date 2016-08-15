@@ -1,0 +1,38 @@
+{% extends 'chemical/base.html' %}
+{% block title %}Formula{% endblock %}
+{% block body %}
+    <h2>Projects &nbsp;<a href ="{% url 'chemical:create_project' %}" ><button  class = 'btn btn-success'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add</button></a></h2>
+    {% if all_project %}
+        <div class = "container">
+            <ul>
+                {% for project in all_project %}
+                <li> <a href = "{% url 'chemical:project_detail' project.id %}"> {{ project.name }} </a> </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <h1>No Project</h1>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Start a New Project</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'chemical/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

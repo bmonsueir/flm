@@ -5,7 +5,7 @@ from . import views
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^$', views.index, name = 'index'),
+    url(r'^$', views.home, name = 'home'),
     url(r'^(?P<chemical_id>[0-9]+)/$', views.chemical_detail, name ='chemical_detail'),
     url(r'^project/(?P<project_id>[0-9]+)/$', views.project_detail, name ='project_detail'),
     url(r'^chemical/$', views.chemical_index, name='chemical_index'),

@@ -196,7 +196,9 @@ def batch(request, formula_id):
         batches = Batch.objects.filter(formula = formula_name)
         print(batches)
         next_row = 0
+        total = 0
         for the_batch in batches:
+            total += the_batch.amount
             next_row = the_batch.row
         next_row += 1
         if form.is_valid():
@@ -206,11 +208,12 @@ def batch(request, formula_id):
             batch.save()
             batches = Batch.objects.filter(formula = formula_name)
             form = BatchForm(request.POST or None, request.FILES or None)
-            return render(request, 'chemical/batch.html', { 'batches': batches, 'formula_name': formula_name, 'form': form})
+            return render(request, 'chemical/batch.html', { 'batches': batches, 'formula_name': formula_name, 'form': form, 'total': total})
         context = {
             "form": form,
             'batches': batches,
-            "formula_name": formula_name
+            "formula_name": formula_name, 
+            'total': total
         }
         return render(request, 'chemical/batch.html', context)
         
