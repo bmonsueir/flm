@@ -1,32 +1,28 @@
 {% extends 'chemical/base.html' %}
-{% block title %} Specifications{% endblock %}
-
+{% block title %}Chemical Database{% endblock %}
 
 {% block body %}
-<h1>{{ chemical_name}}</h1>
 
-
-
-<h3>Specifications</h3>
-<div class="container">
-    <table class="table table-bordered">
-
-       <th>Name</th><th>Min</th><th>Max</th><th>Method</th>
-       {% for spec in specifications %}
-       <tr>
-           <td>{{ spec.name }}</td><td>{{ spec.min_value }}</td><td>{{ spec.max_value }}</td><td>{{ spec.test_method }}</td>
-       </tr>
-       {% endfor %}
-   </table>
+{% if all_chemical %}
+   <div class = "container">
+       <ol type = "1">
+        {% for chemical in all_chemical %}
+        <li> <a href = "{% url 'chemical:chemical' chemical.id %}"> {{ chemical.name }} </a> </li>
+        {% endfor %}
+    </ol>
+       
    </div>
     
-</div>
+{% else %}
+    <h1>No Chemicals</h1>
+{% endif %}
 
 <div class="row">
+
     <div class="col-sm-12 col-md-7">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3>Add a New Specification for {{ chemical_name }}</h3>
+                <h3>Add a New Chemical</h3>
                 {% if error_message %}
                     <p><strong>{{ error_message }}</strong></p>
                 {% endif %}

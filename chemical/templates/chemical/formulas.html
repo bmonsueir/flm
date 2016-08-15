@@ -1,9 +1,25 @@
-    <div class="row">
+{% extends 'chemical/base.html' %}
+{% block title %}Formula{% endblock %}
+{% block body %}
+
+{% if all_formula %}
+   <div class = "container">
+        <ul>
+            {% for formula in all_formula %}
+            <li> <a href = "{% url 'chemical:batch' formula.id %}"> {{ formula.name }} </a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <h1>No Formulas</h1>
+{% endif %}
+
+ <div class="row">
 
         <div class="col-sm-12 col-md-7">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3>Start a New Project</h3>
+                    <h3>Start a New Formula</h3>
                     {% if error_message %}
                         <p><strong>{{ error_message }}</strong></p>
                     {% endif %}
@@ -20,3 +36,5 @@
             </div>
         </div>
     </div>
+
+{% endblock %}
