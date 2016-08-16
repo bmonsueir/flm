@@ -8,14 +8,14 @@ class ChemicalForm(forms.ModelForm):
 
     class Meta:
         model = Chemical
-        fields = ['name', ]
+        fields = ['name', 'description', 'codes', 'functions', 'regulatory' ]
 
 
 class SpecificationForm(forms.ModelForm):
 
     class Meta:
         model = Specification
-        fields = ['name', 'max_value', 'min_value', 'test_method']
+        fields = ['name', 'min_value', 'max_value', 'test_method']
 
 
 class UserForm(forms.ModelForm):
@@ -41,4 +41,4 @@ class BatchForm(forms.ModelForm):
 
     class Meta:
         model = Batch
-        fields = ['chemical', 'phase', 'amount', 'instruction']
+        fields = ['chemical', 'amount', 'phase', 'instruction']

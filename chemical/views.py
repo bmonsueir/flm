@@ -20,25 +20,24 @@ def index(request):
         return render(request, 'chemical/project_index.html', {'all_project': all_project})
 
 def chemical(request, chemical_id):
-    chemical = Chemical.objects.filter(id = chemical_id)
-    specifications = Specification.objects.filter(chemical = chemical_id)
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
+        chemical_name = get_object_or_404(Chemical, id = chemical_id)
+        chemical = Chemical.objects.filter(id = chemical_id)
+        specifications = Specification.objects.filter(chemical = chemical_id)
         form = SpecificationForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             specification = form.save(commit=False)
-            specification.chemical = chemical_id
+            specification.chemical = chemical_name
             specification.save()
         form = SpecificationForm() 
         context = {
             "form": form,
             'specifications': specifications,
-            "chemical": chemical
+            "chemical": chemical,
+            'chemical_name': chemical_name
         }
-    
-    
-    
     return render(request, 'chemical/chemical.html', context)
 
     
@@ -142,7 +141,7 @@ def batch(request, formula_id):
         if form.is_valid():
             batch = form.save(commit=False)
             batch.row = next_row
-            batch.formula = formula_id
+            batch.formula = formula_name
             batch.save()
         form = BatchForm()
            
