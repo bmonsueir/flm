@@ -144,13 +144,14 @@ def batch(request, formula_id):
             batch.formula = formula_name
             batch.save()
         form = BatchForm()
-           
+        batches = Batch.objects.filter(formula = formula_id)
         context = {
             "form": form,
             'batches': batches,
             "formula_name": formula_name, 
             'total': total
         }
+        
         return render(request, 'chemical/batch.html', context)
         
 def chemicals(request):
