@@ -69,3 +69,16 @@ class Batch(models.Model):
     
     def __str__(self):
         return self.instruction
+class Workbook(models.Model):
+    book = models.CharField( max_length=255,)
+    tab = models.CharField( max_length=255, )
+    header = models.CharField(max_length=255,)
+    functions = models.CharField(max_length=255, )
+    data = models.TextField(max_length=255, )
+    updatedBy = models.CharField(max_length=255, )
+    permissions = models.CharField(max_length=255, )
+    updatedAt = models.DateTimeField('date created', default=datetime.now)
+    
+    def __str__(self):
+        return self.book 
+        
