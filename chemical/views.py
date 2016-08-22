@@ -249,7 +249,7 @@ def save_batch(request, formula_id):
         return render(request, 'chemical/add_batch.html', context)
  # workbook      
 def index(request):
-    template = 'sheet/index.html'
+    template = 'chemical/index.html'
 
     app_action = request.POST.get('app_action')
     posted_data = request.POST.get('json_data')
