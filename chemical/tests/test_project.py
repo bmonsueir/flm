@@ -15,34 +15,34 @@ class FormulaModelTest(TestCase):
     def test_formula_is_related_to_project(self):
         project_ = Project.objects.create()
         formula = Formula()
-        formula.list = project_
+        formula.project = project_
         formula.save()
         self.assertIn(formula, project_.formula_set.all())
 
 
     def test_cannot_save_empty_project_formulas(self):
         project_ = Project.objects.create()
-        formula = Formula(list=project_, text='')
+        formula = Formula(project=project_, name='')
         with self.assertRaises(ValidationError):
             formula.save()
             formula.full_clean()
 
 
 
-#     def test_duplicate_formulas_are_invalid(self):
-#         project_ = Project.objects.create()
-#         Formula.objects.create(list=project_, text='bla')
-#         with self.assertRaises(ValidationError):
-#             formula = Formula(list=project_, text='bla')
-#             formula.full_clean()
+    def test_duplicate_formulas_are_invalid(self):
+        project_ = Project.objects.create()
+        Formula.objects.create(project=project_, name='bla')
+        with self.assertRaises(ValidationError):
+            formula = Formula(project=project_, name='bla')
+            formula.full_clean()
 
 
-#     def test_CAN_save_same_formula_to_different_projects(self):
-#         project1 = Project.objects.create()
-#         project2 = Project.objects.create()
-#         Formula.objects.create(list=project1, text='bla')
-#         formula = Formula(list=project2, text='bla')
-#         formula.full_clean()  # should not raise
+    def test_CAN_save_same_formula_to_different_projects(self):
+        project1 = Project.objects.create()
+        project2 = Project.objects.create()
+        Formula.objects.create(project=project1, name='bla')
+        formula = Formula(project=project2, name='bla')
+        formula.full_clean()  # should not raise
 
 
 #     def test_project_ordering(self):
