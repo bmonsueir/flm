@@ -9,7 +9,7 @@ class FormulaModelTest(TestCase):
 
     def test_default_text(self):
         project = Project()
-        self.assertEqual(project.text, '')
+        self.assertEqual(project.name, '')
 
 
     def test_formula_is_related_to_project(self):
