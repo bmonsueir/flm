@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^chemical/(?P<chemical_id>[0-9]+)$', views.chemical, name='chemical'),
     url(r'^chemicals/$', views.chemicals, name='chemicals'),
     url(r'^formulas/(?P<project_id>[0-9]+)$', views.formulas, name='formulas'),
+    url(r'^group/(?P<group_id>[0-9]+)$', views.group, name='group'),
     url(r'^projects/$', views.projects, name='projects'),
     url(r'^tutorials/$', views.tutorials, name='tutorials'),
     url(r'^login_user/$', views.login_user, name='login_user'),

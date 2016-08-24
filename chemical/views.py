@@ -142,23 +142,21 @@ def chemicals(request):
         
         return render(request, 'chemical/chemicals.html', context)
         
-def read_batch(request, formula_id):
+def group(request, group_id):
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
         formula_name = get_object_or_404(Formula, id = formula_id)
-        batches = Batch.objects.filter(formula = formula_id)
+       
         total = 0
-        for the_batch in batches:
-            total += the_batch.amount
+        
         context = {
-            'batches': batches,
             "formula_name": formula_name, 
             'formula_id': formula_id,
             'total': total
         }
         
-        return render(request, 'chemical/read_batch.html', context)
+        return render(request, 'chemical/group.html', context)
         
 
         

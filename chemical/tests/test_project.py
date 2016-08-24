@@ -9,24 +9,13 @@ from chemical.models import Project, Formula
 
 class ProjectModelTest(TestCase):
 
-#     def test_get_absolute_url(self):
-#         project_ = Project.objects.create()
-#         self.assertEqual(project_.get_absolute_url(), '/projects/%d/' % (project_.id,))
+    def test_get_absolute_url(self):
+        project_ = Project.objects.create()
+        self.assertEqual(project_.get_absolute_url(), '/projects/%d/' % (project_.id,))
 
 
     def test_projects_can_have_owners(self):
-        Project(user=User())  # should not raise
-
-
-#     def test_project_owner_is_optional(self):
-#         Project().full_clean()  # should not raise
-
-
-#     def test_project_name_is_first_formula_text(self):
-#         project_ = Project.objects.create()
-#         Formula.objects.create(project=project_, name='first formula')
-#         Formula.objects.create(project=project_, name='second formula')
-#         self.assertEqual(project_.name, 'first formula')
+        Project(createdBy=User())  # should not raise
 
 
 #     def test_create_new_creates_project_and_first_formula(self):

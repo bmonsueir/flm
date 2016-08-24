@@ -56,11 +56,11 @@ class Project(models.Model):
         
         
 class Formula(models.Model):
-    book = models.CharField( max_length=255,default = " " )
-    tab = models.CharField( max_length=255,default = " "  )
-    header = models.CharField(max_length=255,default = " " )
-    functions = models.CharField(max_length=255, default = " " )
-    data = models.TextField(max_length=255,default = " " )
+    book = models.CharField( max_length=255,)
+    tab = models.CharField( max_length=255, )
+    header = models.CharField(max_length=255,)
+    functions = models.CharField(max_length=255, )
+    data = models.TextField(max_length=255, )
     createdBy = models.ForeignKey(User, default=1)
     permissions = models.CharField(max_length=255, )
     updatedAt = models.DateTimeField('date created', default=datetime.now)
