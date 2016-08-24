@@ -1,76 +1,21 @@
-from django.contrib.auth import get_user_model
-#User = get_user_model()
+# from django.contrib.auth import get_user_model
+# User = get_user_model()
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from chemical.models import Project, Formula
 
 
-class FormulaModelTest(TestCase):
 
-    def test_default_text(self):
-        project = Project()
-        self.assertEqual(project.name, '')
-
-
-    def test_formula_is_related_to_project(self):
-        project_ = Project.objects.create()
-        formula = Formula()
-        formula.project = project_
-        formula.save()
-        self.assertIn(formula, project_.formula_set.all())
-
-
-    def test_cannot_save_empty_project_formulas(self):
-        project_ = Project.objects.create()
-        formula = Formula(project=project_, name='')
-        with self.assertRaises(ValidationError):
-            formula.save()
-            formula.full_clean()
-
-
-
-    def test_duplicate_formulas_are_invalid(self):
-        project_ = Project.objects.create()
-        Formula.objects.create(project=project_, name='bla')
-        with self.assertRaises(ValidationError):
-            formula = Formula(project=project_, name='bla')
-            formula.full_clean()
-
-
-    def test_CAN_save_same_formula_to_different_projects(self):
-        project1 = Project.objects.create()
-        project2 = Project.objects.create()
-        Formula.objects.create(project=project1, name='bla')
-        formula = Formula(project=project2, name='bla')
-        formula.full_clean()  # should not raise
-
-
-#     def test_project_ordering(self):
-#         project1 = Project.objects.create()
-#         formula1 = Formula.objects.create(list=project1, text='i1')
-#         formula2 = Formula.objects.create(list=project1, text='formula 2')
-#         formula3 = Formula.objects.create(list=project1, text='3')
-#         self.assertEqual(
-#             list(Formula.objects.all()),
-#             [formula1, formula2, formula3]
-#         )
-
-
-#     def test_string_representation(self):
-#         formula = Formula(text='some text')
-#         self.assertEqual(str(formula), 'some text')
-
-
-
-# class ProjectModelTest(TestCase):
+class ProjectModelTest(TestCase):
 
 #     def test_get_absolute_url(self):
 #         project_ = Project.objects.create()
 #         self.assertEqual(project_.get_absolute_url(), '/projects/%d/' % (project_.id,))
 
 
-#     def test_projects_can_have_owners(self):
-#         Project(owner=User())  # should not raise
+    def test_projects_can_have_owners(self):
+        Project(user=User())  # should not raise
 
 
 #     def test_project_owner_is_optional(self):
@@ -79,8 +24,8 @@ class FormulaModelTest(TestCase):
 
 #     def test_project_name_is_first_formula_text(self):
 #         project_ = Project.objects.create()
-#         Formula.objects.create(list=project_, text='first formula')
-#         Formula.objects.create(list=project_, text='second formula')
+#         Formula.objects.create(project=project_, name='first formula')
+#         Formula.objects.create(project=project_, name='second formula')
 #         self.assertEqual(project_.name, 'first formula')
 
 

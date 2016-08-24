@@ -1,14 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Chemical, Specification, Project, Formula, Batch
+from .models import Chemical, Specification, Project, Attribute
 
 
 class ChemicalForm(forms.ModelForm):
 
     class Meta:
         model = Chemical
-        fields = ['name', 'description', 'codes', 'functions', 'regulatory' ]
+        fields = ['name', 'description']
 
 
 class SpecificationForm(forms.ModelForm):
@@ -31,14 +31,9 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ['name']
 
-class FormulaForm(forms.ModelForm):
+
+class AttributeForm(forms.ModelForm):
 
     class Meta:
-        model = Formula
-        fields = ['name', 'total']
-
-class BatchForm(forms.ModelForm):
-
-    class Meta:
-        model = Batch
-        fields = ['chemical', 'amount', 'phase', 'instruction']
+        model = Attribute
+        fields = ['name', 'description']

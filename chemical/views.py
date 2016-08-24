@@ -3,10 +3,10 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q #what is?
-from .forms import ChemicalForm, SpecificationForm, UserForm, ProjectForm, FormulaForm, BatchForm
+from .forms import ChemicalForm, SpecificationForm, UserForm, ProjectForm, AttributeForm
 from .models import Chemical, Specification
 from .models import Project
-from .models import Formula, Batch, Workbook
+from .models import Formula, Attribute
 import simplejson as json
 from django.http import HttpResponse
 from django.template.context import RequestContext
@@ -120,34 +120,7 @@ def formulas(request, project_id):
         }
         return render(request, 'chemical/formulas.html', context)
         
-def batch(request, formula_id):
-    if not request.user.is_authenticated():
-        return render(request, 'chemical/login.html')
-    else:
-        form = BatchForm(request.POST or None, request.FILES or None)
-        formula_name = get_object_or_404(Formula, id = formula_id)
-        batches = Batch.objects.filter(formula = formula_id)
-        next_row = 0
-        total = 0
-        for the_batch in batches:
-            total += the_batch.amount
-            next_row = the_batch.row
-        next_row += 1
-        if form.is_valid():
-            batch = form.save(commit=False)
-            batch.row = next_row
-            batch.formula = formula_name
-            batch.save()
-        form = BatchForm()
-        batches = Batch.objects.filter(formula = formula_id)
-        context = {
-            "form": form,
-            'batches': batches,
-            "formula_name": formula_name, 
-            'total': total
-        }
-        
-        return render(request, 'chemical/batch.html', context)
+
         
 def chemicals(request):
     if not request.user.is_authenticated():
@@ -187,66 +160,10 @@ def read_batch(request, formula_id):
         
         return render(request, 'chemical/read_batch.html', context)
         
-def add_batch(request, formula_id):
-    if not request.user.is_authenticated():
-        return render(request, 'chemical/login.html')
-    else:
-        form = BatchForm(request.POST or None, request.FILES or None)
-        formula_name = get_object_or_404(Formula, id = formula_id)
-        batches = Batch.objects.filter(formula = formula_id)
-        next_row = 0
-        total = 0
-        for the_batch in batches:
-            total += the_batch.amount
-            next_row = the_batch.row
-        next_row += 1
-        if form.is_valid():
-            batch = form.save(commit=False)
-            batch.row = next_row
-            batch.formula = formula_name
-            batch.save()
-        form = BatchForm()
-        batches = Batch.objects.filter(formula = formula_id)
-        context = {
-            "form": form,
-            'batches': batches,
-            "formula_name": formula_name, 
-            'total': total
-        }
+
         
         
-        return render(request, 'chemical/add_batch.html', context)
-        
-        
-def save_batch(request, formula_id):
-    if not request.user.is_authenticated():
-        return render(request, 'chemical/login.html')
-    else:
-        form = BatchForm(request.POST or None, request.FILES or None)
-        formula_name = get_object_or_404(Formula, id = formula_id)
-        batches = Batch.objects.filter(formula = formula_id)
-        next_row = 0
-        total = 0
-        for the_batch in batches:
-            total += the_batch.amount
-            next_row = the_batch.row
-        next_row += 1
-        if form.is_valid():
-            batch = form.save(commit=False)
-            batch.row = next_row
-            batch.formula = formula_name
-            batch.save()
-        form = BatchForm()
-        batches = Batch.objects.filter(formula = formula_id)
-        context = {
-            "form": form,
-            'batches': batches,
-            'formula_name': formula_name, 
-            'formula_id': formula_id,
-            'total': total
-        }
-        
-        return render(request, 'chemical/add_batch.html', context)
+
  # workbook      
 def index(request):
     template = 'chemical/index.html'
