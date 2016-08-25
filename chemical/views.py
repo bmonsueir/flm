@@ -106,16 +106,11 @@ def formulas(request, project_id):
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
-        form = FormulaForm(request.POST or None, request.FILES or None)
+
         project_name = get_object_or_404(Project, id = project_id)
         all_formula = Formula.objects.filter(project = project_id)
-        if form.is_valid():
-            formula = form.save(commit=False)
-            formula.project = project_name
-            formula.save()
-        form = FormulaForm()
+
         context = {
-            "form": form,
             'all_formula': all_formula
         }
         return render(request, 'chemical/formulas.html', context)
@@ -146,14 +141,14 @@ def group(request, group_id):
     if not request.user.is_authenticated():
         return render(request, 'chemical/login.html')
     else:
-        formula_name = get_object_or_404(Formula, id = formula_id)
+        group_name = get_object_or_404(Formula, id = group_id)
        
         total = 0
         
         context = {
-            "formula_name": formula_name, 
-            'formula_id': formula_id,
-            'total': total
+            "group_name": group_name, 
+            'group_id': group_id,
+        
         }
         
         return render(request, 'chemical/group.html', context)

@@ -49,13 +49,14 @@ class Project(models.Model):
     updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def get_absolute_url(self):
-        return reverse('chemical: project', {'pk': self.pk })
+        return reverse('chemical: projects', {'project_id': self.id })
     
     def __str__(self):
         return self.name 
         
         
 class Formula(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     book = models.CharField( max_length=255,)
     tab = models.CharField( max_length=255, )
     header = models.CharField(max_length=255,)
