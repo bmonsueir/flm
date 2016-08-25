@@ -29,14 +29,14 @@ class ChemicalModelTest(TestCase):
 
     def test_cannot_save_empty_chemical_specification(self):
         chemical_ = Chemical.objects.create()
-        specification = Specification(project=chemical_, name='')
+        specification = Specification(chemical=chemical_, name='')
         with self.assertRaises(ValidationError):
             specification.save()
             specification.full_clean()
     
     def test_cannot_save_empty_chemical_attribute(self):
         chemical_ = Chemical.objects.create()
-        attribute = Attribute(project=chemical_, name='')
+        attribute = Attribute(chemical=chemical_, name='')
         with self.assertRaises(ValidationError):
             attribute.save()
             attribute.full_clean()
@@ -45,16 +45,16 @@ class ChemicalModelTest(TestCase):
 
     def test_duplicate_specification_are_invalid(self):
         chemical_ = Chemical.objects.create()
-        Specification.objects.create(chemical=chemical_, book='bla')
+        Specification.objects.create(chemical=chemical_, name='bla')
         with self.assertRaises(ValidationError):
-            specification = Specification(chemical=chemical_, book='bla')
+            specification = Specification(chemical=chemical_, name='bla')
             specification.full_clean()
             
     def test_duplicate_attribute_are_invalid(self):
         chemical_ = Chemical.objects.create()
-        Attribute.objects.create(chemical=chemical_, book='bla')
+        Attribute.objects.create(chemical=chemical_, name='bla')
         with self.assertRaises(ValidationError):
-            attribute = Specification(chemical=chemical_, book='bla')
+            attribute = Specification(chemical=chemical_, name='bla')
             attribute.full_clean()
 
 
