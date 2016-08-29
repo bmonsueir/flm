@@ -23,4 +23,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('chemical.urls', namespace = 'chemical')),
+    url(r'^', include('formula.urls', namespace = 'formula')),
+    url(r'^', include('project.urls', namespace = 'chemical')),
 ]
