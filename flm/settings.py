@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'chemical',
     'project',
     'formula',
+    'intro',
 ]
 
 MIDDLEWARE_CLASSES = [

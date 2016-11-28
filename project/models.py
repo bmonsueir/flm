@@ -14,10 +14,10 @@ class Project(models.Model):
     updatedAt = models.DateTimeField('date created', default=datetime.now)
     
     def get_absolute_url(self):
-        return reverse('project: projects', {'project_id': self.id })
+        return reverse('project: project', {'pk': self.pk })
     
     def __str__(self):
-        return self.name 
+        return self.id 
         
 
 class Group(models.Model):

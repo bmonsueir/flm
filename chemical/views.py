@@ -10,8 +10,7 @@ import simplejson as json
 from django.http import HttpResponse
 from django.template.context import RequestContext
 
-def home(request):
-    return render(request, 'chemical/home.html')
+
 
 def chemical(request, chemical_id):
     if not request.user.is_authenticated():

@@ -18,11 +18,22 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from intro import views
+# from project import views
+# from chemical import views
+# from formula import views
+
 
 
 urlpatterns = [
+    # url(r'^', include('project.urls', namespace = 'project')),
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('chemical.urls', namespace = 'chemical')),
-    url(r'^', include('formula.urls', namespace = 'formula')),
-    url(r'^', include('project.urls', namespace = 'chemical')),
+    url(r'^', include('intro.urls')),
+    # url(r'^chemical/(?P<chemical_id>[0-9]+)', include('chemical.urls')),
+    # url(r'^chemicals/', include('chemical.urls', namespace = 'chemicals')),
+    # url(r'^formula/', include('formula.urls')),
+    # url(r'^project/', include('project.urls')),
+    # url(r'^group/', include('project.urls', namespace = 'project')),
 ]
+
+
