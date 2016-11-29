@@ -1,4 +1,4 @@
-{% extends 'chemical/base.html' %}
+{% extends 'intro/navigation.html' %}
 {% block title %}Chemical Database{% endblock %}
 
 {% block body %}
@@ -7,7 +7,7 @@
    <div class = "container">
        <ol type = "1">
         {% for chemical in all_chemical %}
-        <li> <a href = "{% url 'chemical:chemical' chemical.id %}"> {{ chemical.name }} </a> </li>
+        <li> <a href = "{% url 'chemical' chemical.id %}"> {{ chemical.name }} </a> </li>
         {% endfor %}
     </ol>
        
@@ -28,7 +28,7 @@
                 {% endif %}
                 <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% include 'chemical/form_template.html' %}
+                    {% include 'intro/form_template.html' %}
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-success">Submit</button>

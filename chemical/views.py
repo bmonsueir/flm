@@ -14,7 +14,7 @@ from django.template.context import RequestContext
 
 def chemical(request, chemical_id):
     if not request.user.is_authenticated():
-        return render(request, 'chemical/login.html')
+        return render(request, 'intro/login.html')
     else:
         chemical_name = get_object_or_404(Chemical, id = chemical_id)
         chemical = Chemical.objects.filter(id = chemical_id)
@@ -38,7 +38,7 @@ def chemical(request, chemical_id):
         
 def chemicals(request):
     if not request.user.is_authenticated():
-        return render(request, 'chemical/login.html')
+        return render(request, 'intro/login.html')
     else:
         all_chemical = Chemical.objects.all()
         context = {

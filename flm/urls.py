@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from intro import views
 # from project import views
-# from chemical import views
+from chemical import views
 # from formula import views
 
 
@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('intro.urls')),
     # url(r'^chemical/(?P<chemical_id>[0-9]+)', include('chemical.urls')),
-    # url(r'^chemicals/', include('chemical.urls', namespace = 'chemicals')),
+    url(r'^chemical/', include('chemical.urls')),
     # url(r'^formula/', include('formula.urls')),
     # url(r'^project/', include('project.urls')),
     # url(r'^group/', include('project.urls', namespace = 'project')),

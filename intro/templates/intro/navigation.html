@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
                 <li><a href="#"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp; Projects</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp; Chemicals</a></li>
+                <li><a href="{% url 'chemicals' %}"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp; Chemicals</a></li>
             </ul>
             <form class="navbar-form navbar-left" role="search" method="get" action="">
                 <div class="form-group">
@@ -39,15 +39,37 @@
             <ul class="nav navbar-nav navbar-right">
                 {% block add %}   {% endblock %}>
                 <li>
-                    <a href="#">
+                    <a href="{% url 'tutorials' %}">
                         <span class="glyphicon glyphicon-film" aria-hidden="true"></span>&nbsp; Tutorials
                     </a>
                 </li>
+                {% if user.is_authenticated %}
                 <li>
                     <a href="#">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp; Preferences
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'logout_user' %}">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp; Logout
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login_user' %}">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; Login
+                    </a>
+                    
+                </li>
+                {% endif %}
+                <!--REMOVE THIS-->
+                <li>
+                    <a href="https://flm-bmonsueir.c9users.io/admin">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp; ADMIN
+                    </a>
+                    
+                </li>
+               
             </ul>
         </div>
 
